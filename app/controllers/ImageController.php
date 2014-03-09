@@ -27,6 +27,24 @@ class ImageController extends BaseController
             ->with('error', 'Image not found');
     }
 
+    public function getDelete($id)
+    {
+        $image = Photo::find($id);
+
+        if ($image) {
+
+            File::delete(Config::get('image.upload_folder') . '/' . $image->image);
+            File::delete(Config::get('image.thumb_folder') . '/' . $image->image);
+            $image->delete();
+
+            return Redirect::to('/')
+                ->with('success', 'Image deleted successfully');
+        }
+
+        return Redirect::to('/')
+            ->with('error', 'No image with such ID found');
+    }
+
     public function postIndex()
     {
         $validation = Validator::make(Input::all(), Photo::$upload_rules);

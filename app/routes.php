@@ -14,6 +14,9 @@
 Route::get('/', array('as' => 'index_page', 'uses' => 'ImageController@getIndex'));
 Route::get('all', array('as' => 'all_images', 'uses' => 'ImageController@getAll'));
 
+Route::get('delete/{id}', array('as' => 'delete_image', 'uses' => 'ImageController@getDelete'))
+    ->where('id', '[0-9]+');
+
 Route::get('snatch/{id}', array('as' => 'get_image_information', 'uses' => 'ImageController@getSnatch'))
     ->where('id', '[0-9]+');
 
