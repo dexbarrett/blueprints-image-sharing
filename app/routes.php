@@ -11,7 +11,10 @@
 |
 */
 
-Route::get('/', function()
-{
-	return Config::get('image.thumb_width');
-});
+Route::get('/', array('as' => 'index_page', 'uses' => 'ImageController@getIndex'));
+Route::get('all', array('as' => 'all_images', 'uses' => 'ImageController@getAll'));
+
+Route::get('snatch/{id}', array('as' => 'get_image_information', 'uses' => 'ImageController@getSnatch'))
+    ->where('id', '[0-9]+');
+
+Route::post('/', array('as' => 'index_page_post', 'before' => 'csrf', 'uses' => 'ImageController@postIndex'));
